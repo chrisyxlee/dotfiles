@@ -1,0 +1,15 @@
+# Inserts a blank line between shell prompts
+add_newline = true
+
+# Disable the package module, hiding it from the prompt completely
+# [package]
+# disabled = true
+
+[git_branch]
+symbol="🌱"
+
+[git_metrics]
+disabled = false
+
+[kubernetes]
+disabled = false
