@@ -1,0 +1,23 @@
+[user]
+	name = TODO
+	email = TODO
+[core]
+	editor = vim
+[pull]
+	rebase = true
+[alias]
+	# Aliases taken from
+	# https://opensource.com/article/20/11/git-aliases
+	st = "status -sb"
+	cm = "commit -m"
+	ll = "log --oneline"
+	last = "log -1 HEAD --stat"
+	d = "diff"
+	dv = "difftool -t vimdiff -y"
+  se  = ! "git rev-list --all | xargs git grep -F"
+	#  Cleans up local git branches deleted on remote.
+	# https://www.erikschierboom.com/2020/02/17/cleaning-up-local-git-branches-deleted-on-a-remote/
+	gone = ! "git fetch -p && git for-each-ref --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" {print $1}' | xargs -r git branch -D"
+	# Rebases a branch onto main again.
+	# Run this from the branch you're trying to rebase.
+	sync = ! "git pull origin main && git gone && git rebase main"
