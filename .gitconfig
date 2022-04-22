@@ -10,10 +10,14 @@
 	# https://opensource.com/article/20/11/git-aliases
 	st = "status -sb"
 	cm = "commit -m"
+	co = "checkout"
 	ll = "log --oneline"
 	last = "log -1 HEAD --stat"
 	d = "diff"
 	dv = "difftool -t vimdiff -y"
+	amend = "commit --amend --no-edit"
+	pf = "push --force-with-lease"
+	rename = "commit --amend"
   se  = ! "git rev-list --all | xargs git grep -F"
 	#  Cleans up local git branches deleted on remote.
 	# https://www.erikschierboom.com/2020/02/17/cleaning-up-local-git-branches-deleted-on-a-remote/
