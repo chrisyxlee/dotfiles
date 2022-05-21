@@ -12,11 +12,20 @@
 	cm = "commit -m"
 	co = "checkout"
 	ll = "log --oneline"
+	# SHA for the last commit
+	l = !"git rev-parse --verify HEAD | pbcopy"
 	last = "log -1 HEAD --stat"
 	d = "diff"
 	dv = "difftool -t vimdiff -y"
 	amend = "commit --amend --no-edit"
+	undo = "reset HEAD~1"
+	# Using this flag, git checks if the remote version of the branch is the same
+	# as the one you rebase, i.e. did someone push new commits when we were
+	# rebasing. The push is then rejected if the remotes branch is changed.
 	pf = "push --force-with-lease"
+	b = "checkout -b"
+	bs = "branch -a --list \"chris*\""
+	pu = !"git push --set-upstream origin $(git branch --show-current)"
 	rename = "commit --amend"
   se  = ! "git rev-list --all | xargs git grep -F"
 	#  Cleans up local git branches deleted on remote.
@@ -25,3 +34,5 @@
 	# Rebases a branch onto main again.
 	# Run this from the branch you're trying to rebase.
 	sync = ! "git pull origin main && git gone && git rebase main"
+	tree = "log --graph --pretty=oneline --abbrev-commit"
+	tmp = !"git add -A && git cm 'tmp'"
