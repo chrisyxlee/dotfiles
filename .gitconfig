@@ -8,31 +8,44 @@
 [alias]
 	# Aliases taken from
 	# https://opensource.com/article/20/11/git-aliases
+  # Shows the status in a short fashion and shows the branch name.
 	st = "status -sb"
+  # Commits with a message.
 	cm = "commit -m"
+  # Checks out a branch.
 	co = "checkout"
-	ll = "log --oneline"
-	# SHA for the last commit
+  # Shows all of the previous commits in a compact way.
+	ll = "log --graph --pretty=oneline --abbrev-commit"
+	# Copies the SHA for the last commit. Useful for cherry picking when splitting branches.
 	l = !"git rev-parse --verify HEAD | pbcopy"
+  # Shows the last commit in detail.
 	last = "log -1 HEAD --stat"
+  # Just shortens the diff.
 	d = "diff"
+  # Opens vimdiff to see diffs side by side.
 	dv = "difftool -t vimdiff -y"
+  # Takes the current changes and amends them to the previous commit without renaming the commit.
 	amend = "commit --amend --no-edit"
+  # Uncommits the most recent commit. Typically used in combination with `git tmp` to
+  # pause and restart work.
 	undo = "reset HEAD~1"
 	# Using this flag, git checks if the remote version of the branch is the same
 	# as the one you rebase, i.e. did someone push new commits when we were
 	# rebasing. The push is then rejected if the remotes branch is changed.
 	pf = "push --force-with-lease"
+  # Creates a new branch.
 	b = "checkout -b"
+  # Lists all branches that have my name in them.
 	bs = "branch -a --list \"chris*\""
+  # Pushes a local branch to origin. I typically use this after creating a local branch with `git b` and adding code
+  # that I'm ready to upload for others to see.
 	pu = !"git push --set-upstream origin $(git branch --show-current)"
+  # Amends the previous commit and allows for the commit message to be changed.
 	rename = "commit --amend"
   se  = ! "git rev-list --all | xargs git grep -F"
 	#  Cleans up local git branches deleted on remote.
 	# https://www.erikschierboom.com/2020/02/17/cleaning-up-local-git-branches-deleted-on-a-remote/
 	gone = ! "git fetch -p && git for-each-ref --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" {print $1}' | xargs -r git branch -D"
-	# Rebases a branch onto main again.
-	# Run this from the branch you're trying to rebase.
-	sync = ! "git pull origin main && git gone && git rebase main"
-	tree = "log --graph --pretty=oneline --abbrev-commit"
-	tmp = !"git add -A && git cm 'tmp'"
+  # Adds all current changes into a commit called `tmp`. If the last commit is called `tmp`, this will amend
+  # the changes. Otherwise, this will create a new commit.
+	tmp = !"if [[ \"$(git log -1 --pretty=%B)\" = \"tmp\" ]]; then git add -A && git amend; else git add -A && git cm \"tmp\"; fi"
