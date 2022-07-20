@@ -5,7 +5,21 @@
 	editor = vim
 [pull]
 	rebase = true
+
+[diff]
+	tool = difftastic
+	external = difft
+[difftool]
+	prompt = false
+[difftool "difftastic"]
+	cmd = difft "$LOCAL" "$REMOTE"
+# Use a pager for large output, just like other git commands.
+[pager]
+	difftool = true
+
 [alias]
+	# `git dft` is less to type than `git difftool`.
+	dft = difftool
 	# Aliases taken from
 	# https://opensource.com/article/20/11/git-aliases
 	# Shows the status in a short fashion and shows the branch name.
