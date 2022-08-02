@@ -36,6 +36,8 @@
 	last = "log -1 HEAD --stat"
 	# Just shortens the diff.
 	d = "diff"
+	# Shows the shortened summary of the diff. Example: git ds main
+	ds = "diff --stat"
 	# Opens vimdiff to see diffs side by side.
 	dv = "difftool -t vimdiff -y"
 	# Takes the current changes and amends them to the previous commit without renaming the commit.
