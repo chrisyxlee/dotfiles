@@ -27,4 +27,5 @@ cask "numi"
 cask "rectangle"
 
 # Ruby
+brew "ruby-install"
 brew "chruby"
