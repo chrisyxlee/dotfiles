@@ -25,3 +25,6 @@ cask "gimp"
 cask "karabiner-elements"
 cask "numi"
 cask "rectangle"
+
+# Ruby
+brew "chruby"
