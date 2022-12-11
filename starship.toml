@@ -13,3 +13,9 @@ disabled = false
 
 [kubernetes]
 disabled = false
+
+[time]
+disabled = false
+format = '🕙[\[ $time \]]($style) '
+time_format = "%T"
+utc_time_offset = "local"
