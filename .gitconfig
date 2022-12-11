@@ -24,6 +24,10 @@
 	# https://opensource.com/article/20/11/git-aliases
 	# Shows the status in a short fashion and shows the branch name.
 	st = "status -sb"
+	# Gets a list of the files added or updated.
+	# Filters out files that were deleted and the old file names if they were
+	# renamed.
+	stlist = !"git status --porcelain | sed '/^D /d' | sed '/ D /d' | sed 's/^...//' | sed 's/.*-> //'"
 	# Commits with a message.
 	cm = "commit -m"
 	# Checks out a branch.
@@ -65,3 +69,8 @@
 	# Adds all current changes into a commit called `tmp`. If the last commit is called `tmp`, this will amend
 	# the changes. Otherwise, this will create a new commit.
 	tmp = !"if [[ \"$(git log -1 --pretty=%B)\" = \"tmp\" ]]; then git add -A && git amend; else git add -A && git cm \"tmp\"; fi"
+	# A workaround since VS Code takes so long to load...
+	gofmt = !"for f in $(git stlist | grep '.*go'); do go fmt $f; done"
+	# Lists the history of commits that have modified a file.
+  # Usage: `git fhist <filename>`.
+	fhist = !"git log --follow -- "
