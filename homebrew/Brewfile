@@ -23,7 +23,6 @@ cask "alfred"
 cask "basictex"
 cask "docker"
 cask "gimp"
-cask "karabiner-elements"
 cask "numi"
 cask "rectangle"
 
