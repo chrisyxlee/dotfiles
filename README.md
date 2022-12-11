@@ -23,9 +23,3 @@ cp .gitconfig ~/.gitconfig
 vim ~/.gitconfig
 ```
 
-## `karabiner-elements`
-
-```sh
-mkdir -p ~/.config/karabiner/
-cp karabiner.json ~/.config/karabiner/
-```
