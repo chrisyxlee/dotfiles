@@ -28,6 +28,9 @@ cask "gimp"
 cask "numi"
 cask "rectangle"
 
+# GPU-accelerated cross-platform terminal emulator and multiplexer
+cask "wezterm"
+
 # Ruby
 brew "ruby-install"
 brew "chruby"
