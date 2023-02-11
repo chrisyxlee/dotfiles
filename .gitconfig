@@ -1,6 +1,6 @@
 [user]
-	name = TODO
-	email = TODO
+	name = "Chris Lee"
+	email = "chris.yx.lee@gmail.com"
 [core]
 	editor = vim
 [pull]
