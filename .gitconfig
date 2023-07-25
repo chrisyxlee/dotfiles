@@ -30,6 +30,8 @@
 	stlist = !"git status --porcelain | sed '/^D /d' | sed '/ D /d' | sed 's/^...//' | sed 's/.*-> //'"
 	# Commits with a message.
 	cm = "commit -m"
+	# Commits with a message without verifying.
+	cmv = "commit --no-verify -m"
 	# Checks out a branch.
 	co = "checkout"
 	# Shows all of the previous commits in a compact way.
@@ -46,6 +48,7 @@
 	dv = "difftool -t vimdiff -y"
 	# Takes the current changes and amends them to the previous commit without renaming the commit.
 	amend = "commit --amend --no-edit"
+	amv = "commit --amend --no-edit --no-verify"
 	# Uncommits the most recent commit. Typically used in combination with `git tmp` to
 	# pause and restart work.
 	undo = "reset HEAD~1"
@@ -68,9 +71,11 @@
 	gone = ! "git fetch -p && git for-each-ref --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" {print $1}' | xargs -r git branch -D"
 	# Adds all current changes into a commit called `tmp`. If the last commit is called `tmp`, this will amend
 	# the changes. Otherwise, this will create a new commit.
-	tmp = !"if [[ \"$(git log -1 --pretty=%B)\" = \"tmp\" ]]; then git add -A && git amend; else git add -A && git cm \"tmp\"; fi"
+	tmp = !"if [[ \"$(git log -1 --pretty=%B)\" = \"tmp\" ]]; then git add -A && git amend --no-verify; else git add -A && git cm \"tmp\" --no-verify; fi"
 	# A workaround since VS Code takes so long to load...
 	gofmt = !"for f in $(git stlist | grep '.*go'); do go fmt $f; done"
 	# Lists the history of commits that have modified a file.
   # Usage: `git fhist <filename>`.
 	fhist = !"git log --follow -- "
+	a = "add -A"
+	mg = !"git fetch origin main && git merge origin/main"
