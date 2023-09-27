@@ -78,4 +78,33 @@
   # Usage: `git fhist <filename>`.
 	fhist = !"git log --follow -- "
 	a = "add -A"
+  # Merge main into current branch.
 	mg = !"git fetch origin main && git merge origin/main"
+  # Pull and get rid of branches
+	pl = !"git checkout main && git pull && git gone"
+	# https://stackoverflow.com/questions/5188320/how-can-i-get-a-list-of-git-branches-ordered-by-most-recent-commit
+  # Recent Branches
+	rb = !"r() { \
+    refbranch=$1; \
+    count=$2; \
+    lines=$(git for-each-ref refs/heads \
+      --sort=-committerdate \
+      --format='%(refname:short)|%(HEAD)%(color:yellow)%(refname:short)|%(color:bold green)%(committerdate:relative)|%(color:blue)%(subject)|%(color:magenta)%(authorname)%(color:reset)' \
+      --color=always \
+      --count=${count:-100}); \
+    rows=$(echo \"$lines\" | while read line; do \
+        branch=$(echo \"$line\" | \
+          awk 'BEGIN { FS = \"|\" }; { print $1 }' | \
+          tr -d '*'); \
+        ahead=$(git rev-list --count \"${refbranch:-origin/main}..${branch}\"); \
+        behind=$(git rev-list --count \"${branch}..${refbranch:-origin/main}\"); \
+        colorline=$(echo \"$line\" | sed 's/^[^|]*|//'); \
+        echo \"$ahead|$behind|$colorline\" | awk -F'|' -vOFS='|' '{$5=substr($5,1,70)}1' ; \
+      done); \
+    rows=$(echo \"ahead|behind|branch|lastcommit|message|author|pr\" && echo \"$rows\"); \
+    echo \"$rows\" | while read line; do \
+      echo \"$line\"; \
+    done | column -ts'|'; \
+  }; r"
+  # Open the associated GitHub PR (for the current branch) in the web.
+  open = !"gh pr view --web"
