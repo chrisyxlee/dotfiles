@@ -108,3 +108,4 @@
   }; r"
   # Open the associated GitHub PR (for the current branch) in the web.
   open = !"gh pr view --web"
+  code = !"code $(git diff main --name-only)"
