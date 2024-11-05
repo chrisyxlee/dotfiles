@@ -20,6 +20,8 @@
 [alias]
 	# `git dft` is less to type than `git difftool`.
 	dft = difftool
+	# diff against upstream main
+	dfm = diff origin/main
 	# Aliases taken from
 	# https://opensource.com/article/20/11/git-aliases
 	# Shows the status in a short fashion and shows the branch name.
@@ -30,6 +32,7 @@
 	stlist = !"git status --porcelain | sed '/^D /d' | sed '/ D /d' | sed 's/^...//' | sed 's/.*-> //'"
 	# Commits with a message.
 	cm = "commit -m"
+	cnv = "commit --no-verify"
 	# Commits with a message without verifying.
 	cmv = "commit --no-verify -m"
 	# Checks out a branch.
@@ -82,6 +85,7 @@
 	mg = !"git fetch origin main && git merge origin/main"
   # Pull and get rid of branches
 	pl = !"git checkout main && git pull && git gone"
+	rbm = "rebase origin/main"
 	# https://stackoverflow.com/questions/5188320/how-can-i-get-a-list-of-git-branches-ordered-by-most-recent-commit
   # Recent Branches
 	rb = !"r() { \
@@ -108,4 +112,7 @@
   }; r"
   # Open the associated GitHub PR (for the current branch) in the web.
   open = !"gh pr view --web"
+  repo = !"gh repo view --web"
   code = !"code $(git diff main --name-only)"
+  snippet = "log origin/main --author='Chris Lee' --pretty=format:'%h - %an, %ar : %s'"
+
