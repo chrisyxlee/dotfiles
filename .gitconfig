@@ -105,14 +105,12 @@
         colorline=$(echo \"$line\" | sed 's/^[^|]*|//'); \
         echo \"$ahead|$behind|$colorline\" | awk -F'|' -vOFS='|' '{$5=substr($5,1,70)}1' ; \
       done); \
-    rows=$(echo \"ahead|behind|branch|lastcommit|message|author|pr\" && echo \"$rows\"); \
-    echo \"$rows\" | while read line; do \
-      echo \"$line\"; \
-    done | column -ts'|'; \
+    rows=$((echo \"ahead|behind|branch|lastcommit|message|author\" && echo \"$rows\") | column -ts'|'); \
+    echo \"$rows\" | head -n 1; \
+    echo \"$rows\" | tail -n +2 |  tr '\\n' '\\0' | xargs -0 gum choose | awk '{print $3}' | xargs git checkout; \
   }; r"
   # Open the associated GitHub PR (for the current branch) in the web.
   open = !"gh pr view --web"
   repo = !"gh repo view --web"
   code = !"code $(git diff main --name-only)"
   snippet = "log origin/main --author='Chris Lee' --pretty=format:'%h - %an, %ar : %s'"
-
