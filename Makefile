@@ -12,3 +12,11 @@ init-gitconfig:
 
 ~/.gitconfig:
 	$(MAKE) init-gitconfig
+
+.PHONY: brew
+brew:
+	cd homebrew && brew bundle check
+
+.PHONY: brew-dump
+brew-dump:
+	cd homebrew && rm Brewfile && brew bundle dump
